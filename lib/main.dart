@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'app_theme.dart';
+import 'assets_media.dart';
+import 'detail_page.dart';
 import 'responsive_profile.dart';
 
 void main() {
@@ -28,11 +31,22 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Tugas UI Flutter',
-      theme: ThemeData(primarySwatch: Colors.indigo, fontFamily: 'Roboto'),
-      darkTheme: ThemeData.dark(useMaterial3: true),
+      title: 'Assets Media & Navigation',
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
-      home: ResponsiveProfilePage(onThemeChanged: toggleTheme),
+
+      // 1. Rute awal (halaman pertama saat app dibuka)
+      initialRoute: '/',
+
+      // 2. Named Routes
+      routes: {
+        '/': (context) => const AssetsMediaPage(),
+        '/detail': (context) => const DetailPage(),
+        // Halaman dari pertemuan sebelumnya, tidak const karena membawa callback
+        '/profile': (context) =>
+            ResponsiveProfilePage(onThemeChanged: toggleTheme),
+      },
     );
   }
 }
