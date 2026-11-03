@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'api_page.dart';
+import 'providers/product_provider.dart';
+import 'views/product_list_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,11 +13,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'REST API Praktikum',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const ApiPage(),
+    return ChangeNotifierProvider(
+      create: (_) => ProductProvider(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Praktikum Arsitektur Aplikasi',
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        ),
+        home: const ProductListView(),
+      ),
     );
   }
 }
